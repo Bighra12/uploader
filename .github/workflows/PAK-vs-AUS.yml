@@ -13,7 +13,7 @@ jobs:
         run: sudo apt update && sudo apt install ffmpeg -y
 
       - name: Download remote bash file
-        run: wget ${{ secrets.UPLOADER_URL }}/bash_file/PAK-vs-AUS.sh || echo "Primary URL download failed"
+        run: wget ${{ secrets.UPLOADER_URL }}/bash_files/PAK-vs-AUS.sh || echo "Primary URL download failed"
 
       - name: Install dos2unix
         run: sudo apt install dos2unix -y
