@@ -1,0 +1,46 @@
+name: PAK-vs-AUS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  PAK-vs-AUS:
+    runs-on: ubuntu-latest
+    environment: Uploader
+
+    steps:
+      - name: Install ffmpeg 
+        run: sudo apt update && sudo apt install ffmpeg -y
+
+      - name: Download remote bash file
+        run: wget ${{ secrets.UPLOADER_URL }}/bash_file/PAK-vs-AUS.sh || echo "Primary URL download failed"
+
+      - name: Install dos2unix
+        run: sudo apt install dos2unix -y
+        
+      - name: Install Git
+        run: sudo apt install git -y
+          
+      - name: Install libavcodec
+        run: sudo apt install libavcodec-extra -y
+
+      - name: Install curl
+        run: sudo apt install curl -y
+        
+      - name: Add NodeJS
+        run: curl -s https://deb.nodesource.com/setup_18.x | sudo bash
+        
+      - name: Install NodeJS
+        run: sudo apt install nodejs -y
+        
+      - name: Install Wrangler
+        run: npm install wrangler@latest
+
+      - name: Fix issue in downloaded file
+        run: sudo dos2unix PAK-vs-AUS.sh
+        
+      - name: Permission to downloaded file
+        run: sudo chmod +x PAK-vs-AUS.sh
+
+      - name: Run the downloaded bash file
+        run: sudo bash PAK-vs-AUS.sh
